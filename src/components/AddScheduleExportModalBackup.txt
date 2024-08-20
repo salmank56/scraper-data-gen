@@ -1,0 +1,1136 @@
+// import React, { useState } from "react";
+
+// interface AddScheduledExportProps {
+//   isOpen: boolean;
+//   onClose: () => void;
+//   onSubmit: (exportData: ExportData) => void;
+// }
+
+// interface ExportData {
+//   csvFile: File | null;
+//   sector: string;
+//   dataModule: string;
+//   exportFrequency: string;
+//   timePeriod: string;
+// }
+
+// const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
+//   isOpen,
+//   onClose,
+//   onSubmit,
+// }) => {
+//   const [exportData, setExportData] = useState<ExportData>({
+//     csvFile: null,
+//     sector: "Quantum",
+//     dataModule: "Partnership",
+//     exportFrequency: "One Time",
+//     timePeriod: "1 Day",
+//   });
+
+//   if (!isOpen) return null;
+
+//   const handleInputChange = (
+//     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+//   ) => {
+//     const { name, value } = e.target;
+//     setExportData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = e.target.files ? e.target.files[0] : null;
+//     setExportData((prev) => ({ ...prev, csvFile: file }));
+//   };
+
+//   const handleSubmit = (e: React.FormEvent) => {
+//     e.preventDefault();
+//     onSubmit(exportData);
+//   };
+
+//   return (
+//     <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+//       <div className="bg-white p-6 rounded-lg shadow-lg min-w-[28rem] max-w-[28rem]">
+//         <h2 className="mb-4 text-2xl font-bold">Add Scheduled Export</h2>
+//         <form onSubmit={handleSubmit}>
+//           <div className="mb-4">
+//             <label className="block text-sm font-medium text-gray-700">
+//               CSV File (optional):
+//             </label>
+//             <div className="flex items-center mt-1">
+//               <input
+//                 type="file"
+//                 onChange={handleFileChange}
+//                 className="hidden"
+//                 id="csvFile"
+//                 accept=".csv"
+//               />
+//               <label
+//                 htmlFor="csvFile"
+//                 className="px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//               >
+//                 Choose file
+//               </label>
+//               <span className="ml-3 text-sm text-gray-500">
+//                 {exportData.csvFile
+//                   ? exportData.csvFile.name
+//                   : "No file chosen"}
+//               </span>
+//             </div>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-sm font-medium text-gray-700">
+//               Sector:
+//             </label>
+//             <select
+//               name="sector"
+//               value={exportData.sector}
+//               onChange={handleInputChange}
+//               className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//             >
+//               <option>Quantum</option>
+//               {/* Add more options as needed */}
+//             </select>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-sm font-medium text-gray-700">
+//               Data Module:
+//             </label>
+//             <select
+//               name="dataModule"
+//               value={exportData.dataModule}
+//               onChange={handleInputChange}
+//               className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//             >
+//               <option>Partnership</option>
+//               {/* Add more options as needed */}
+//             </select>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-sm font-medium text-gray-700">
+//               Export Frequency:
+//             </label>
+//             <select
+//               name="exportFrequency"
+//               value={exportData.exportFrequency}
+//               onChange={handleInputChange}
+//               className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//             >
+//               <option>One Time</option>
+//               {/* Add more options as needed */}
+//             </select>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-sm font-medium text-gray-700">
+//               Time Period:
+//             </label>
+//             <select
+//               name="timePeriod"
+//               value={exportData.timePeriod}
+//               onChange={handleInputChange}
+//               className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//             >
+//               <option>1 Day</option>
+//               {/* Add more options as needed */}
+//             </select>
+//           </div>
+
+//           <div className="flex justify-end mt-6">
+//             <button
+//               type="button"
+//               onClick={onClose}
+//               className="px-4 py-2 mr-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//             >
+//               Cancel
+//             </button>
+//             <button
+//               type="submit"
+//               className="px-4 py-2 text-sm font-medium text-white bg-teal-600 border border-transparent rounded-md shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+//             >
+//               Start Export
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddScheduledExport;
+
+import React, { useState } from "react";
+
+interface AddScheduledExportProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (exportData: ExportData) => void;
+  onLogUpdate: (log: string) => void;
+}
+
+interface ExportData {
+  csvFile: File | null;
+  sector: string;
+  dataModule: string;
+  exportFrequency: string;
+  timePeriod: string;
+}
+
+const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
+  isOpen,
+  onClose,
+  // onSubmit,
+  onLogUpdate,
+}) => {
+  const [exportData, setExportData] = useState<ExportData>({
+    csvFile: null,
+    sector: "Quantum",
+    dataModule: "Partnership",
+    exportFrequency: "One Time",
+    timePeriod: "1 Day",
+  });
+
+  const [fileUploaded, SetFileUploaded] = useState(false);
+
+  if (!isOpen) return null;
+
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  // ) => {
+  //   const { name, value } = e.target;
+  //   setExportData((prev) => ({ ...prev, [name]: value }));
+  // };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    setExportData((prev) => ({ ...prev, csvFile: file }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // onSubmit(exportData);
+    if (!fileUploaded) return;
+    try {
+      const response = await fetch("http://127.0.0.1:8000/run-main/", {
+        method: "POST",
+      });
+
+      if (!response.body) {
+        throw new Error("ReadableStream not supported or empty response body.");
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        if (value) {
+          const chunk = decoder.decode(value);
+          onLogUpdate(chunk);
+        }
+      }
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!exportData.csvFile) {
+      alert("No file selected for upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", exportData.csvFile);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/upload-csv/", {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log(response);
+
+      if (!response.ok) {
+        SetFileUploaded(true);
+        throw new Error("Upload failed.");
+      }
+
+      alert("File uploaded successfully!");
+      SetFileUploaded(true);
+    } catch (error) {
+      alert(JSON.stringify(error));
+      SetFileUploaded(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg min-w-[28rem] max-w-[28rem]">
+        <h2 className="mb-4 text-2xl font-bold">Add Scheduled Export</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              CSV File:
+            </label>
+            <div className="flex items-center mt-1">
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="hidden"
+                id="csvFile"
+                accept=".csv"
+              />
+              <label
+                htmlFor="csvFile"
+                className="px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Choose file
+              </label>
+              <span className="ml-3 text-sm text-gray-500">
+                {exportData.csvFile
+                  ? exportData.csvFile.name
+                  : "No file chosen"}
+              </span>
+              <button
+                type="button"
+                onClick={handleUpload}
+                className="px-4 py-2 ml-3 text-sm font-medium text-white bg-teal-600 border border-transparent rounded-md shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              >
+                Upload
+              </button>
+            </div>
+          </div>
+
+          {/* Other input fields */}
+
+          <div className="flex justify-end mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 mr-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 text-sm font-medium text-white bg-teal-600 border border-transparent rounded-md shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+            >
+              Start Export
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AddScheduledExport;
+
+oky sure no prob sir it's ok i know you work alot mein meetings mein dekhri hoti hu...just thori si details chahiye thi to isliye msg kiya apko
+
+
+
+
+
+9:15
+thank u for your hardwork sir
+how can i respond to her justa small message
+
+Here's a simple and polite way to respond:
+
+"No problem, feel free to message me whenever you need any details. I appreciate your understanding. And thank you for your kind words!"
+
+Or, in a more casual tone:
+
+"Anytime! Don't hesitate to reach out if you need something. And thanks for the support!"
+
+import React, { useState, useRef } from "react";
+import { Task, useTaskStore } from "../hooks/useTaskStore";
+
+interface Log {
+  message: string;
+  color: string;
+}
+
+interface AddScheduledExportProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (exportData: ExportData) => void;
+  onLogUpdate: (log: Log) => void;
+  resetLogs: () => void;
+}
+
+interface ExportData {
+  csvFile: File | null;
+  sector: string;
+}
+
+const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
+  isOpen,
+  onClose,
+  onLogUpdate,
+  resetLogs,
+}) => {
+  const initialExportData: ExportData = {
+    csvFile: null,
+    sector: "quantum",
+  };
+
+  const [exportData, setExportData] = useState<ExportData>(initialExportData);
+
+  const handleSectorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setExportData((prev) => ({ ...prev, sector: e.target.value }));
+  };
+
+  const addTask = useTaskStore((state) => state.addTask);
+  const updateTask = useTaskStore((state) => state.updateTask);
+
+  const [isUploading, setIsUploading] = useState(false);
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  if (!isOpen) return null;
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (!file) return;
+
+    setExportData((prev) => ({ ...prev, csvFile: file }));
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("details", exportData.sector);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/upload-csv/`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Upload failed.");
+      }
+
+      alert("File uploaded successfully!");
+      setIsFileUploaded(true);
+    } catch (error) {
+      alert("Upload failed. Please try again.");
+      setExportData((prev) => ({ ...prev, csvFile: null }));
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      setIsFileUploaded(false);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const resetForm = () => {
+    setExportData(initialExportData);
+    setIsFileUploaded(false);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isFileUploaded) return;
+
+    const newTask: Task = {
+      id: Date.now().toString(),
+      sector: exportData.sector,
+      lastRunTime: new Date().toLocaleString(),
+      state: "Processing",
+    };
+
+    addTask(newTask);
+    onClose();
+
+    resetLogs();
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/run-main-scraping/`,
+        {
+          method: "POST",
+        }
+      );
+
+      if (!response.body) {
+        throw new Error("ReadableStream not supported or empty response body.");
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        if (value) {
+          const chunk = decoder.decode(value);
+          const log: Log = {
+            message: chunk,
+            color: chunk.includes("ERROR")
+              ? "#FF0000"
+              : chunk.includes("WARNING")
+              ? "#FFFF00"
+              : chunk.includes("SUCCESS")
+              ? "#00FF00"
+              : chunk.includes("DEBUG")
+              ? "#00FFFF"
+              : chunk.includes("INFO")
+              ? "#FFFFFF"
+              : "#D3D3D3",
+          };
+          onLogUpdate(log);
+        }
+      }
+
+      updateTask(newTask.id, {
+        state: "Completed",
+        lastRunTime: new Date().toLocaleString(),
+      });
+
+      alert("Process Completed");
+
+      console.log(response);
+      resetForm();
+    } catch (error) {
+      console.log(error);
+
+      updateTask(newTask.id, {
+        state: "Failed",
+        lastRunTime: new Date().toLocaleString(),
+      });
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg min-w-[28rem] max-w-[28rem]">
+        <h2 className="mb-4 text-2xl font-bold">Add Scheduled Export</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              CSV File:
+            </label>
+            <div className="flex items-center mt-1">
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="hidden"
+                id="csvFile"
+                accept=".csv"
+                ref={fileInputRef}
+              />
+              <label
+                htmlFor="csvFile"
+                className="px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Choose file
+              </label>
+              <span className="ml-3 text-sm text-gray-500">
+                {exportData.csvFile
+                  ? exportData.csvFile.name
+                  : "No file chosen"}
+              </span>
+              {isUploading && (
+                <svg
+                  className="w-5 h-5 ml-3 text-gray-500 animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8z"
+                  ></path>
+                </svg>
+              )}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Sector:
+            </label>
+            <select
+              name="sector"
+              value={exportData.sector}
+              onChange={handleSectorChange}
+              className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value={"quantum"}>Quantum</option>
+              <option value={"climate"}>Climate</option>
+              <option value={"space"}>Space</option>
+              <option value={"other"}>Other</option>
+            </select>
+          </div>
+
+          <div className="flex justify-end mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 mr-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className={`${
+                !isFileUploaded
+                  ? "bg-tertiary/60"
+                  : "bg-tertiary/90 hover:bg-tertiary "
+              } px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500`}
+              disabled={!isFileUploaded}
+            >
+              Start Export
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AddScheduledExport;
+
+
+make it like so when i give csv file it dosent send request and when i enter start export it should  make request to upload-csv and remove that other requet for now! and now this endpoint will recieve streaming data so just pass this data to callback and also utitilize that useTaskStore here
+
+Sure, I'll modify the code to ensure that the CSV file is only uploaded when the "Start Export" button is clicked, and the streaming data from the endpoint is passed to the onLogUpdate callback. I'll also remove the other request for now and utilize the useTaskStore.
+
+Here's the updated code:
+
+
+import React, { useState, useRef } from "react";
+import { Task, useTaskStore } from "../hooks/useTaskStore";
+
+interface Log {
+  message: string;
+  color: string;
+}
+
+interface AddScheduledExportProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onLogUpdate: (log: Log) => void;
+  resetLogs: () => void;
+}
+
+interface ExportData {
+  csvFile: File | null;
+  sector: string;
+}
+
+const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
+  isOpen,
+  onClose,
+  onLogUpdate,
+  resetLogs,
+}) => {
+  const initialExportData: ExportData = {
+    csvFile: null,
+    sector: "quantum",
+  };
+
+  const [exportData, setExportData] = useState<ExportData>(initialExportData);
+
+  const handleSectorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setExportData((prev) => ({ ...prev, sector: e.target.value }));
+  };
+
+  const addTask = useTaskStore((state) => state.addTask);
+  const updateTask = useTaskStore((state) => state.updateTask);
+
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  if (!isOpen) return null;
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (!file) return;
+
+    setExportData((prev) => ({ ...prev, csvFile: file }));
+  };
+
+  const resetForm = () => {
+    setExportData(initialExportData);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!exportData.csvFile) return;
+
+    const newTask: Task = {
+      id: Date.now().toString(),
+      sector: exportData.sector,
+      lastRunTime: new Date().toLocaleString(),
+      state: "Processing",
+    };
+
+    addTask(newTask);
+    onClose();
+
+    resetLogs();
+
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", exportData.csvFile);
+    formData.append("details", exportData.sector);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/upload-csv/`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.body) {
+        throw new Error("ReadableStream not supported or empty response body.");
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        if (value) {
+          const chunk = decoder.decode(value);
+          const log: Log = {
+            message: chunk,
+            color: chunk.includes("ERROR")
+              ? "#FF0000"
+              : chunk.includes("WARNING")
+              ? "#FFFF00"
+              : chunk.includes("SUCCESS")
+              ? "#00FF00"
+              : chunk.includes("DEBUG")
+              ? "#00FFFF"
+              : chunk.includes("INFO")
+              ? "#FFFFFF"
+              : "#D3D3D3",
+          };
+          onLogUpdate(log);
+        }
+      }
+
+      updateTask(newTask.id, {
+        state: "Completed",
+        lastRunTime: new Date().toLocaleString(),
+      });
+
+      alert("Process Completed");
+
+      console.log(response);
+      resetForm();
+    } catch (error) {
+      console.log(error);
+
+      updateTask(newTask.id, {
+        state: "Failed",
+        lastRunTime: new Date().toLocaleString(),
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg min-w-[28rem] max-w-[28rem]">
+        <h2 className="mb-4 text-2xl font-bold">Add Scheduled Export</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              CSV File:
+            </label>
+            <div className="flex items-center mt-1">
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="hidden"
+                id="csvFile"
+                accept=".csv"
+                ref={fileInputRef}
+              />
+              <label
+                htmlFor="csvFile"
+                className="px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Choose file
+              </label>
+              <span className="ml-3 text-sm text-gray-500">
+                {exportData.csvFile
+                  ? exportData.csvFile.name
+                  : "No file chosen"}
+              </span>
+              {isUploading && (
+                <svg
+                  className="w-5 h-5 ml-3 text-gray-500 animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8z"
+                  ></path>
+                </svg>
+              )}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Sector:
+            </label>
+            <select
+              name="sector"
+              value={exportData.sector}
+              onChange={handleSectorChange}
+              className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value={"quantum"}>Quantum</option>
+              <option value={"climate"}>Climate</option>
+              <option value={"space"}>Space</option>
+              <option value={"other"}>Other</option>
+            </select>
+          </div>
+
+          <div className="flex justify-end mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 mr-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className={`${
+                !exportData.csvFile
+                  ? "bg-tertiary/60"
+                  : "bg-tertiary/90 hover:bg-tertiary "
+              } px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500`}
+              disabled={!exportData.csvFile}
+            >
+              Start Export
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AddScheduledExport;
+In this updated version:
+
+The CSV file is only uploaded when the "Start Export" button is clicked.
+The streaming data from the upload-csv endpoint is passed to the onLogUpdate callback.
+The other request has been removed for now.
+The useTaskStore is utilized to add and update tasks.
+
+
+
+/// csv first before sector backup
+
+// import React, { useState, useRef } from "react";
+// import { Task, useTaskStore } from "../hooks/useTaskStore";
+
+// interface Log {
+//   message: string;
+//   color: string;
+// }
+
+// interface AddScheduledExportProps {
+//   isOpen: boolean;
+//   onClose: () => void;
+//   onSubmit: (exportData: ExportData) => void;
+//   onLogUpdate: (log: Log) => void;
+//   resetLogs: () => void;
+// }
+
+// interface ExportData {
+//   csvFile: File | null;
+//   sector: string;
+// }
+
+// const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
+//   isOpen,
+//   onClose,
+//   onLogUpdate,
+//   resetLogs,
+// }) => {
+//   const initialExportData: ExportData = {
+//     csvFile: null,
+//     sector: "quantum",
+//   };
+
+//   const [exportData, setExportData] = useState<ExportData>(initialExportData);
+
+//   const handleSectorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+//     setExportData((prev) => ({ ...prev, sector: e.target.value }));
+//   };
+
+//   const addTask = useTaskStore((state) => state.addTask);
+//   const updateTask = useTaskStore((state) => state.updateTask);
+
+//   const [isUploading, setIsUploading] = useState(false);
+//   const [isFileUploaded, setIsFileUploaded] = useState(false);
+//   const fileInputRef = useRef<HTMLInputElement>(null);
+
+//   if (!isOpen) return null;
+
+//   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = e.target.files ? e.target.files[0] : null;
+//     if (!file) return;
+
+//     setExportData((prev) => ({ ...prev, csvFile: file }));
+//     setIsUploading(true);
+
+//     const formData = new FormData();
+//     formData.append("file", file);
+//     formData.append("details", exportData.sector);
+
+//     try {
+//       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/input/`, {
+//         method: "POST",
+//         body: formData,
+//       });
+
+//       if (!response.ok) {
+//         throw new Error("Upload failed.");
+//       }
+
+//       alert("File uploaded successfully!");
+//       setIsFileUploaded(true);
+//     } catch (error) {
+//       alert("Upload failed. Please try again.");
+//       setExportData((prev) => ({ ...prev, csvFile: null }));
+//       if (fileInputRef.current) {
+//         fileInputRef.current.value = "";
+//       }
+//       setIsFileUploaded(false);
+//     } finally {
+//       setIsUploading(false);
+//     }
+//   };
+
+//   const resetForm = () => {
+//     setExportData(initialExportData);
+//     setIsFileUploaded(false);
+//     if (fileInputRef.current) {
+//       fileInputRef.current.value = "";
+//     }
+//   };
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (!isFileUploaded) return;
+
+//     const newTask: Task = {
+//       id: Date.now().toString(),
+//       sector: exportData.sector,
+//       lastRunTime: new Date().toLocaleString(),
+//       state: "Processing",
+//     };
+
+//     addTask(newTask);
+//     onClose();
+
+//     resetLogs();
+
+//     try {
+//       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/run`, {
+//         method: "POST",
+//       });
+
+//       if (!response.body) {
+//         throw new Error("ReadableStream not supported or empty response body.");
+//       }
+
+//       const reader = response.body.getReader();
+//       const decoder = new TextDecoder();
+//       let done = false;
+
+//       while (!done) {
+//         const { value, done: doneReading } = await reader.read();
+//         done = doneReading;
+//         if (value) {
+//           const chunk = decoder.decode(value);
+//           const log: Log = {
+//             message: chunk,
+//             color: chunk.includes("ERROR")
+//               ? "#FF0000"
+//               : chunk.includes("WARNING")
+//               ? "#FFFF00"
+//               : chunk.includes("SUCCESS")
+//               ? "#00FF00"
+//               : chunk.includes("DEBUG")
+//               ? "#00FFFF"
+//               : chunk.includes("INFO")
+//               ? "#FFFFFF"
+//               : "#D3D3D3",
+//           };
+//           onLogUpdate(log);
+//         }
+//       }
+
+//       updateTask(newTask.id, {
+//         state: "Completed",
+//         lastRunTime: new Date().toLocaleString(),
+//       });
+
+//       alert("Process Completed");
+
+//       console.log(response);
+//       resetForm();
+//     } catch (error) {
+//       console.log(error);
+
+//       updateTask(newTask.id, {
+//         state: "Failed",
+//         lastRunTime: new Date().toLocaleString(),
+//       });
+//     }
+//   };
+
+//   return (
+//     <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+//       <div className="bg-white p-6 rounded-lg shadow-lg min-w-[28rem] max-w-[28rem]">
+//         <h2 className="mb-4 text-2xl font-bold">Add Scheduled Export</h2>
+//         <form onSubmit={handleSubmit}>
+//           <div className="mb-4">
+//             <label className="block text-sm font-medium text-gray-700">
+//               CSV File:
+//             </label>
+//             <div className="flex items-center mt-1">
+//               <input
+//                 type="file"
+//                 onChange={handleFileChange}
+//                 className="hidden"
+//                 id="csvFile"
+//                 accept=".csv"
+//                 ref={fileInputRef}
+//               />
+//               <label
+//                 htmlFor="csvFile"
+//                 className="px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//               >
+//                 Choose file
+//               </label>
+//               <span className="ml-3 text-sm text-gray-500">
+//                 {exportData.csvFile
+//                   ? exportData.csvFile.name
+//                   : "No file chosen"}
+//               </span>
+//               {isUploading && (
+//                 <svg
+//                   className="w-5 h-5 ml-3 text-gray-500 animate-spin"
+//                   xmlns="http://www.w3.org/2000/svg"
+//                   fill="none"
+//                   viewBox="0 0 24 24"
+//                 >
+//                   <circle
+//                     className="opacity-25"
+//                     cx="12"
+//                     cy="12"
+//                     r="10"
+//                     stroke="currentColor"
+//                     strokeWidth="4"
+//                   ></circle>
+//                   <path
+//                     className="opacity-75"
+//                     fill="currentColor"
+//                     d="M4 12a8 8 0 018-8v8z"
+//                   ></path>
+//                 </svg>
+//               )}
+//             </div>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-sm font-medium text-gray-700">
+//               Sector:
+//             </label>
+//             <select
+//               name="sector"
+//               value={exportData.sector}
+//               onChange={handleSectorChange}
+//               className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//             >
+//               <option value={"quantum"}>Quantum</option>
+//               <option value={"climate"}>Climate</option>
+//               <option value={"space"}>Space</option>
+//               <option value={"other"}>Other</option>
+//             </select>
+//           </div>
+
+//           <div className="flex justify-end mt-6">
+//             <button
+//               type="button"
+//               onClick={onClose}
+//               className="px-4 py-2 mr-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//             >
+//               Cancel
+//             </button>
+//             <button
+//               type="submit"
+//               className={`${
+//                 !isFileUploaded
+//                   ? "bg-tertiary/60"
+//                   : "bg-tertiary/90 hover:bg-tertiary "
+//               } px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500`}
+//               disabled={!isFileUploaded}
+//             >
+//               Start Export
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddScheduledExport;
