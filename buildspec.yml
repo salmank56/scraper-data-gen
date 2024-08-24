@@ -8,7 +8,7 @@ phases:
       - | 
         if [ "$ENV" = "prod" ]; then
           pip install --upgrade awscli
-        if
+        fi
   build:
     commands:
       - npm run build
