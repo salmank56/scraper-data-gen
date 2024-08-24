@@ -2,30 +2,24 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 16
+      nodejs: 20
     commands:
-      # Install dependencies needed
       - npm install
-
-      # Test
-      #- yarn test
-
-      # Upgrade AWS CLI to the latest version
-      - pip install --upgrade awscli
+      - | 
+        if [ "$ENV" = "prod" ]; then
+          pip install --upgrade awscli
+        if
   build:
     commands:
-      # Build the react app to give an optimized production build
       - npm run build
       
   post_build:
     commands:
-      # Clear cloudfront distribution cache update
-      - aws cloudfront create-invalidation --distribution-id E2R5MDIA8O7VAI --paths "/*"
-
-
+      - | 
+        if [ "$ENV" = "prod" ]; then
+          aws cloudfront create-invalidation --distribution-id E2R5MDIA8O7VAI --paths "/*"
+        fi
 artifacts:
-  # include all files required to run application
-  # we include only the static build files
   files:
     - '**/*'
   base-directory: 'dist'  
