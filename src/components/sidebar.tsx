@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 
-// Define types
 type NavItem = {
   name: string;
   href: string;
@@ -13,7 +12,6 @@ type NavItem = {
   };
 };
 
-// SVG components for icons
 const DashboardIcon: React.FC = () => (
   <svg
     className="w-5 h-5"
@@ -39,12 +37,16 @@ const EditInputIcon: React.FC = () => (
   </svg>
 );
 
-// Navigation items array
 const navItems: NavItem[] = [
   { name: "Home", href: "/", icon: <DashboardIcon /> },
   {
-    name: "Edit Inputs",
-    href: "/edit-prompts",
+    name: "Edit Taxonomy",
+    href: "/edit-taxonomy",
+    icon: <EditInputIcon />,
+  },
+  {
+    name: "Edit Prompt",
+    href: "/edit-prompt",
     icon: <EditInputIcon />,
   },
 ];
@@ -53,13 +55,8 @@ type SidebarProps = {
   sidebarOpen: boolean;
 };
 
-// Sidebar component
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
   return (
-    // <aside
-    //   className="fixed top-[44px] left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-    //   aria-label="Sidebar"
-    // >
     <aside
       className={`fixed top-[64px] left-0 z-40 w-64 h-screen transition-transform ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -72,7 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
             <li key={index}>
               <Link
                 to={item.href}
-                className="flex items-center p-2 text-white rounded-lg hover:text-primary dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className="flex items-center p-2 text-white rounded-lg hover:text-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 {item.icon}
                 <span className="flex-1 ms-3 whitespace-nowrap">

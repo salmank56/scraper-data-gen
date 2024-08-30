@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Task, useTaskStore } from "../hooks/useTaskStore";
+import { toast } from "react-toastify";
 
 interface Log {
   message: string;
@@ -9,13 +10,13 @@ interface Log {
 interface AddScheduledExportProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (exportData: ExportData) => void;
+  // onSubmit: (exportData: ExportData) => void;
   onLogUpdate: (log: Log) => void;
   resetLogs: () => void;
 }
 
 interface ExportData {
-  csvFile: File | null;
+  companyCsv: File | null;
   sector: string;
 }
 
@@ -23,74 +24,50 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
   isOpen,
   onClose,
   onLogUpdate,
+  // onSubmit,
   resetLogs,
 }) => {
   const initialExportData: ExportData = {
-    csvFile: null,
+    companyCsv: null,
     sector: "",
   };
 
   const [exportData, setExportData] = useState<ExportData>(initialExportData);
-
-  const handleSectorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setExportData((prev) => ({ ...prev, sector: e.target.value }));
+  const fileInputRefs = {
+    companyCsv: useRef<HTMLInputElement>(null),
   };
 
   const addTask = useTaskStore((state) => state.addTask);
   const updateTask = useTaskStore((state) => state.updateTask);
 
-  const [isUploading, setIsUploading] = useState(false);
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   if (!isOpen) return null;
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: keyof ExportData
+  ) => {
     const file = e.target.files ? e.target.files[0] : null;
-    if (!file) return;
+    setExportData((prev) => ({ ...prev, [field]: file }));
+  };
 
-    setExportData((prev) => ({ ...prev, csvFile: file }));
-    setIsUploading(true);
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("details", exportData.sector);
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/input/`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Upload failed.");
-      }
-
-      alert("File uploaded successfully!");
-      setIsFileUploaded(true);
-    } catch (error) {
-      alert("Upload failed. Please try again.");
-      setExportData((prev) => ({ ...prev, csvFile: null }));
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setIsFileUploaded(false);
-    } finally {
-      setIsUploading(false);
-    }
+  const handleSectorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setExportData((prev) => ({ ...prev, sector: e.target.value }));
   };
 
   const resetForm = () => {
     setExportData(initialExportData);
-    setIsFileUploaded(false);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    Object.values(fileInputRefs).forEach((ref) => {
+      if (ref.current) ref.current.value = "";
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isFileUploaded) return;
+    if (!exportData.companyCsv) return;
+
+    const formData = new FormData();
+    formData.append("company_file", exportData.companyCsv);
+    formData.append("details", exportData.sector);
 
     const newTask: Task = {
       id: Date.now().toString(),
@@ -104,9 +81,17 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
     resetLogs();
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/run`, {
-        method: "POST",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/upload_and_run/`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
 
       if (!response.body) {
         throw new Error("ReadableStream not supported or empty response body.");
@@ -123,7 +108,6 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
         if (value) {
           logBuffer += decoder.decode(value, { stream: !done });
 
-          // Adjusted regex to avoid splitting on mid-log timestamps
           const logEntries = logBuffer.split(
             /(?<=\n)(?=\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}[.,]\d{0,3} - [\w.]+ - [A-Z]+ - )/
           );
@@ -158,15 +142,14 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
         lastRunTime: new Date().toLocaleString(),
       });
 
-      alert("Process Completed");
+      toast.success("Process Completed");
       resetForm();
     } catch (error) {
-      console.log(error);
-
       updateTask(newTask.id, {
         state: "Failed",
         lastRunTime: new Date().toLocaleString(),
       });
+      toast.error(`Something went wrong! Try again`);
     }
   };
 
@@ -191,26 +174,25 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
               <option value={"quantum"}>Quantum</option>
               <option value={"climate"}>Climate</option>
               <option value={"space"}>Space</option>
-              <option value={"other"}>Other</option>
             </select>
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
-              CSV File:
+              Company CSV File:
             </label>
             <div className="flex items-center mt-1">
               <input
                 type="file"
-                onChange={handleFileChange}
+                onChange={(e) => handleFileChange(e, "companyCsv")}
                 className="hidden"
-                id="csvFile"
+                id="companyCsvFile"
                 accept=".csv"
-                ref={fileInputRef}
-                disabled={!exportData.sector} // Disable file input if no sector is selected
+                ref={fileInputRefs.companyCsv}
+                disabled={!exportData.sector}
               />
               <label
-                htmlFor="csvFile"
+                htmlFor="companyCsvFile"
                 className={`px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
                   !exportData.sector ? "opacity-50 cursor-not-allowed" : ""
                 }`}
@@ -218,32 +200,10 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
                 Choose file
               </label>
               <span className="ml-3 text-sm text-gray-500">
-                {exportData.csvFile
-                  ? exportData.csvFile.name
+                {exportData.companyCsv
+                  ? exportData.companyCsv.name
                   : "No file chosen"}
               </span>
-              {isUploading && (
-                <svg
-                  className="w-5 h-5 ml-3 text-gray-500 animate-spin"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8z"
-                  ></path>
-                </svg>
-              )}
             </div>
           </div>
 
@@ -258,11 +218,11 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
             <button
               type="submit"
               className={`${
-                !isFileUploaded
+                !exportData.companyCsv
                   ? "bg-tertiary/60"
                   : "bg-tertiary/90 hover:bg-tertiary "
               } px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500`}
-              disabled={!isFileUploaded}
+              disabled={!exportData.companyCsv}
             >
               Start Export
             </button>

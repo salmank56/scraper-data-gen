@@ -1,3 +1,5 @@
+import CustomizePromptModel from "./CustomizePromptModel";
+
 type HeaderProps = {
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +29,7 @@ const Header: React.FC<HeaderProps> = ({ sidebarOpen, setSidebarOpen }) => {
           </svg>
         </button>
         <h1 className="flex-1 text-xl text-white">SCRAPING</h1>
+        <CustomizePromptModel />
       </nav>
     </div>
   );
