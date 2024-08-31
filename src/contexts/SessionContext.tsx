@@ -52,8 +52,8 @@ export const SessionProvider = ({ children, loader }: { children: ReactNode; loa
                 navigate(ERROR_PATH);
             }
         };
-        // const timeoutId = setTimeout(() => navigate(ERROR_PATH), SESSION_TIMEOUT_DURATION);
-        const timeoutId = setTimeout(() => navigate("/"), SESSION_TIMEOUT_DURATION);
+        const timeoutId = setTimeout(() => navigate(ERROR_PATH), SESSION_TIMEOUT_DURATION);
+        // const timeoutId = setTimeout(() => navigate("/"), SESSION_TIMEOUT_DURATION);
         window.addEventListener("message", handlePostMessage);
         if (window.opener) window.opener.postMessage(WINDOWS_SESSION_REQUEST, "*");
 
