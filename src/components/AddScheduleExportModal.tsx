@@ -82,7 +82,7 @@ const AddScheduledExport: React.FC<AddScheduledExportProps> = ({
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/upload_and_run/`,
+        `${import.meta.env.VITE_BASE_URL}/upload_and_run`,
         {
           method: "POST",
           body: formData,
