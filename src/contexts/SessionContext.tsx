@@ -63,6 +63,6 @@ export const SessionProvider = ({ children, loader }: { children: ReactNode; loa
         };
     }, [navigate]);
     
-    // if (loading) return loader;
+    if (loading) return loader;
     return <SessionContext.Provider value={{getSession, reload}}>{children}</SessionContext.Provider>;
 };
