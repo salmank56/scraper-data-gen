@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
 import SidebarWrapper from "./components/sidebar";
 import Footer from "./components/Footer";
-import { SessionProvider } from "./contexts/SessionContext";
-import { Loader } from "./pages/Loader";
+// import { SessionProvider } from "./contexts/SessionContext";
+// import { Loader } from "./pages/Loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
-    <SessionProvider loader={<Loader/>}>
+    // <SessionProvider loader={<Loader/>}>
       <div>
         {/* <Header /> */}
         <div className="relative">
@@ -20,7 +20,7 @@ const App = () => {
         </div>
         <ToastContainer />
       </div>
-    </SessionProvider>
+    // </SessionProvider>
   );
 };
 
