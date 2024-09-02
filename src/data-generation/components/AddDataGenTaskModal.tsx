@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { FaPlus } from 'react-icons/fa';
 
 const formSchema = z.object({
   csvFile: z.instanceof(File).optional(),
@@ -39,7 +40,11 @@ const AddDataGenTaskModal: React.FC = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className='bg-primary'>Add Scheduled Export</Button>
+        <button
+          className="flex items-center gap-2 px-4 py-2 mr-2 text-white bg-teal-600 rounded"
+        >
+          <FaPlus /> <span>New Scraping</span>
+        </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

@@ -64,10 +64,10 @@ const Home: React.FC = () => {
           onClick={() => setIsModalOpen(true)}
           className="flex items-center gap-2 px-4 py-2 mr-2 text-white bg-teal-600 rounded"
         >
-          <FaPlus /> <span>New Scrapping</span>
+          <FaPlus /> <span>New Scraping</span>
         </button>
         <Link to={"/scraper/edit-taxonomy"}>
-          <button className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-200 rounded ">
+        <button className="flex items-center gap-2 px-4 py-2 rounded dark:bg-gray-600 dark:text-gray-100 ">
             <FaEdit />
             <span>Edit Taxonomy</span>
           </button>
