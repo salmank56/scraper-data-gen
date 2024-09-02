@@ -43,7 +43,7 @@ const AddDataGenTaskModal: React.FC = () => {
         <button
           className="flex items-center gap-2 px-4 py-2 mr-2 text-white bg-teal-600 rounded"
         >
-          <FaPlus /> <span>New Scraping</span>
+          <FaPlus /> <span>Add Task</span>
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

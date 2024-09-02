@@ -1,8 +1,8 @@
 import React from "react";
 import TasksTable from "../components/TasksTable";
 import AddDataGenTaskModal from "../components/AddDataGenTaskModal";
-import { FaEdit } from "react-icons/fa";
-import { Link } from "react-router-dom";
+// import { FaEdit } from "react-icons/fa";
+// import { Link } from "react-router-dom";
 
 const DataGenHome: React.FC = () => {
   return (
@@ -13,12 +13,12 @@ const DataGenHome: React.FC = () => {
       </p>
       <div className="flex items-center mb-4">
         <AddDataGenTaskModal />
-        <Link to={"/data-gen/edit-task"}>
+        {/* <Link to={"/data-gen/edit-task"}>
           <button className="flex items-center gap-2 px-4 py-2 rounded dark:bg-gray-600 dark:text-gray-100 ">
             <FaEdit />
-            <span>Edit Taxonomy</span>
+            <span>Edit </span>
           </button>
-        </Link>
+        </Link> */}
       </div>
       <TasksTable />
     </div>
