@@ -38,9 +38,42 @@ const EditTaxonomy: React.FC = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while updating taxonomy.");
+      toast.error("An error occurred while updating taxonomy.");
     }
   };
+  const handlePreviousTaxonomyDownload = async () => {
+    if (!selectedModule) {
+      toast.error("Please select a module before downloading.");
+      return;
+    }
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_URL}/download_taxonomy/${selectedModule}`,
+      {
+        method: "GET",
+      }
+    );
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `${selectedModule}_taxonomy.csv`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      toast.success("Taxonomy downloaded successfully!");
+    } else {
+      toast.error("Failed to download taxonomy.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    toast.error("An error occurred while downloading taxonomy.");
+  }
+};
 
   return (
     <div className="p-4">
@@ -98,10 +131,18 @@ const EditTaxonomy: React.FC = () => {
           />
         </div>
         <button
-          className="px-4 py-2 mt-4 text-white rounded-md bg-tertiary"
+        disabled={!selectedModule || !file}
+          className={`px-4 py-2 mt-4 text-white rounded-md bg-tertiary ${!selectedModule || !file ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handleSubmit}
         >
           Update Taxonomy
+        </button>
+        <button
+        disabled={!selectedModule}
+          className={`px-4 py-2 mt-4 ml-2 text-white rounded-md bg-tertiary ${!selectedModule ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={handlePreviousTaxonomyDownload}
+        >
+          Download Previous {selectedModule} Taxonomy
         </button>
       </div>
     </div>

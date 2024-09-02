@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import TasksTable from "../components/TasksTable";
+import AddDataGenTaskModal from "../components/AddDataGenTaskModal";
 
 const DataGenHome: React.FC = () => {
   return (
@@ -10,9 +11,7 @@ const DataGenHome: React.FC = () => {
         Manage and create scheduled tasks for generating data exports.
       </p>
       <div className="flex items-center gap-4 mb-4">
-        <Button className="flex items-center gap-2 px-4 py-2 mr-2 text-white bg-teal-600 rounded">
-          New Task
-        </Button>
+        <AddDataGenTaskModal />
         <Button>Edit Inputs</Button>
       </div>
       <TasksTable />
