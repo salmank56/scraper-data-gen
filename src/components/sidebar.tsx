@@ -91,7 +91,6 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
   );
 };
 
-// Main App component
 const SidebarWrapper: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
