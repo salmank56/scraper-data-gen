@@ -16,6 +16,7 @@ import EditTaxonomy from "./scraper/pages/EditTaxonomy.tsx";
 import DataGenHome from "./data-generation/pages/DataGenHome.tsx";
 import NotFound from "./components/shared/NotFound.tsx";
 import EditInputs from "./data-generation/pages/EditInputs.tsx";
+import UserGuide from "./scraper/pages/UserGuide.tsx";
 
 const RedirectToScraper = () => {
   return <Navigate to="/scraper" replace />;
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route path="/scraper" Component={Home} />
         <Route path="/scraper/edit-taxonomy" Component={EditTaxonomy} />
         <Route path="/scraper/edit-prompt" Component={EditPrompt} />
+        <Route path="/scraper/User-Guide" Component={UserGuide} />
       </Route>
       <Route path="" element={<App />}>
         <Route path="/data-gen" element={<DataGenHome />}></Route>

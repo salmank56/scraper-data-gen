@@ -46,6 +46,7 @@
 import React from 'react';
 import { NavLink, useLocation } from "react-router-dom";
 import { DashboardIcon, GearIcon, InputIcon } from '@radix-ui/react-icons';
+import { FaNewspaper } from 'react-icons/fa';
 
 interface NavLinkProps {
   link: string;
@@ -60,6 +61,11 @@ const scraperNavLinks = [
     href: "/scraper/edit-taxonomy",
     icon: <InputIcon className='w-5 h-5' />,
   },
+  {
+    name: "User Guide",
+    href: "/scraper/user-guide",
+    icon: <FaNewspaper className='w-5 h-5' />,
+  },
 ];
 
 const dataGenNavLinks = [
@@ -69,6 +75,11 @@ const dataGenNavLinks = [
     href: "/data-gen/edit-inputs",
     icon: <GearIcon className='w-5 h-5' />,
   },
+  // {
+  //   name: "User Guide",
+  //   href: "/data-gen/user-guide",
+  //   icon: <GearIcon className='w-5 h-5' />,
+  // },
 ];
 
 const NavigationLinks: React.FC = () => {
