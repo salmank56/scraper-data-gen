@@ -17,6 +17,7 @@ import DataGenHome from "./data-generation/pages/DataGenHome.tsx";
 import NotFound from "./components/shared/NotFound.tsx";
 import EditInputs from "./data-generation/pages/EditInputs.tsx";
 import UserGuide from "./scraper/pages/UserGuide.tsx";
+import { ThemeProvider } from "./components/theme-provider.tsx";
 
 const RedirectToScraper = () => {
   return <Navigate to="/scraper" replace />;
@@ -45,6 +46,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider defaultTheme="light">
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );

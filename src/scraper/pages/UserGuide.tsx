@@ -152,6 +152,9 @@ const UserGuide: React.FC = () => {
                   <li>
                     <strong className="text-teal-400">Update Taxonomy:</strong> Click to finalize changes
                   </li>
+                  <li>
+                    <strong className="text-teal-400">Download Previous Taxonomy:</strong> Select Scope and click to download previous taxonomy
+                  </li>
                 </ul>
               }
             />
