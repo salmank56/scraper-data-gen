@@ -1,62 +1,120 @@
-import { FaDownload } from "react-icons/fa";
-import { Edit, Trash } from "lucide-react";
+import React, { useEffect, useState } from 'react';
+import { FaDownload } from 'react-icons/fa';
+import { Edit, Trash } from 'lucide-react';
 
-const tasks = [
-  {
-    sector: "Space",
-    dataModule: "Management Change",
-    exportFrequency: "One Time",
-    lastRunTime: "2024-08-31 at 01:53:00",
-    state: "Completed (One-time)",
-  },
-  {
-    sector: "Space",
-    dataModule: "Funding Round",
-    exportFrequency: "One Time",
-    lastRunTime: "2024-08-31 at 01:50:00",
-    state: "Completed (One-time)",
-  },
-  {
-    sector: "Space",
-    dataModule: "Funding Round",
-    exportFrequency: "One Time",
-    lastRunTime: "2024-08-31 at 01:48:00",
-    state: "Failed: No Relevant Data",
-  },
-  {
-    sector: "Climate",
-    dataModule: "Partnership",
-    exportFrequency: "One Time",
-    lastRunTime: "2024-08-31 at 01:45:00",
-    state: "Completed (One-time)",
-  },
-  {
-    sector: "Metaverse",
-    dataModule: "Partnership",
-    exportFrequency: "One Time",
-    lastRunTime: "2024-08-31 at 01:44:00",
-    state: "Completed (One-time)",
-  },
-  {
-    sector: "Quantum",
-    dataModule: "Partnership",
-    exportFrequency: "One Time",
-    lastRunTime: "2024-08-31 at 01:42:00",
-    state: "Completed (One-time)",
-  },
-  {
-    sector: "Space",
-    dataModule: "Partnership",
-    exportFrequency: "One Time",
-    lastRunTime: "2024-08-31 at 01:40:00",
-    state: "Completed (One-time)",
-  },
-];
+interface Task {
+  id: string;
+  sector: string;
+  data_module: string;
+  export_frequency: string;
+  last_run_time: string | null;
+  status: string;
+}
 
-const TasksTable = () => {
-  const onDownload = (taskId: string) => {
-    console.log(`Downloading task with ID: ${taskId}`);
+interface TasksTableProps {
+  refreshTrigger: number;
+}
+
+
+const TasksTable: React.FC<TasksTableProps> = ({ refreshTrigger }) => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  // const [socket, setSocket] = useState<WebSocket | null>(null);
+
+  useEffect(() => {
+    fetchTasks();
+    // connectWebSocket();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_DATA_GEN_BASE_URL}scheduled_exports`);
+      const data = await response.json();
+      setTasks(data.scheduled_exports);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  // const connectWebSocket = () => {
+  //   const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  //   const wsUrl = `${wsProtocol}//${import.meta.env.VITE_DATA_GEN_BASE_URL.replace(/^https?:\/\//, '')}ws`;
+    
+  //   console.log('Attempting to connect WebSocket to:', wsUrl);
+
+  //   const ws = new WebSocket(wsUrl);
+  //   setSocket(ws);
+
+  //   ws.onopen = () => {
+  //     console.log('WebSocket connected successfully');
+  //   };
+
+  //   ws.onmessage = (event) => {
+  //     const data = JSON.parse(event.data);
+  //     if (data.type === 'task_update') {
+  //       setTasks((prevTasks) =>
+  //         prevTasks.map((task) => (task.id === data.task.id ? data.task : task))
+  //       );
+  //     }
+  //   };
+
+  //   ws.onclose = (event) => {
+  //     console.log('WebSocket closed:', event);
+  //     // Attempt to reconnect after a delay
+  //     setTimeout(connectWebSocket, 5000);
+  //   };
+
+  //   ws.onerror = (error) => {
+  //     console.error('WebSocket error:', error);
+  //   };
+  // };
+
+  const onDownload = (taskId: string) => {
+    fetch(`${import.meta.env.VITE_DATA_GEN_BASE_URL}completed_export_csv_files/${taskId}`)
+      .then(response => {
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('No data available for this query.');
+          }
+          throw new Error('An error occurred while fetching the file.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const s3Url = data.s3;
+        if (!s3Url) {
+          throw new Error('Invalid S3 URL received from the server.');
+        }
+        window.open(s3Url, '_blank');
+      })
+      .catch(error => {
+        console.error('Download error:', error);
+        alert(error.message);
+      });
+  };
+
+  const handleEdit = (taskId: string) => {
+    console.log(`Editing task with ID: ${taskId}`);
+  };
+
+  const handleDelete = (taskId: string) => {
+    if (confirm('Are you sure you want to delete this scheduled export?')) {
+      fetch(`${import.meta.env.VITE_DATA_GEN_BASE_URL}delete_scheduled_export/${taskId}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(result => {
+          console.log(result.message);
+          fetchTasks(); // Refresh the table after deletion
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  };
+
+    useEffect(() => {
+    fetchTasks();
+  }, [refreshTrigger]);
+
 
   return (
     <table className="w-full border-collapse">
@@ -72,32 +130,27 @@ const TasksTable = () => {
       </thead>
       <tbody>
         {tasks.map((task, index) => (
-          <tr
-            key={index}
-            className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
-          >
+          <tr key={task.id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
             <td className="p-2">{task.sector}</td>
-            <td className="p-2">{task.dataModule}</td>
-            <td className="p-2">{task.exportFrequency}</td>
-            <td className="p-2">{task.lastRunTime}</td>
-            <td className="p-2">{task.state}</td>
+            <td className="p-2">{task.data_module.replace(/_/g, ' ')}</td>
+            <td className="p-2">{task.export_frequency.replace(/_/g, ' ')}</td>
+            <td className="p-2">{task.last_run_time || '-'}</td>
+            <td className="p-2">{task.status}</td>
             <td className="p-2 space-x-2 text-right">
-              <button className="p-1 text-blue-500 hover:text-blue-700">
+              <button className="p-1 text-blue-500 hover:text-blue-700" onClick={() => handleEdit(task.id)}>
                 <Edit size={16} />
               </button>
-              <button className="p-1 text-red-500 hover:text-red-700">
+              <button className="p-1 text-red-500 hover:text-red-700" onClick={() => handleDelete(task.id)}>
                 <Trash size={16} />
               </button>
               <button
                 className={`p-1 ${
-                  task.state.startsWith("Completed")
-                    ? "text-green-500 hover:text-green-700"
-                    : "text-gray-400 cursor-not-allowed"
+                  task.status.startsWith('Completed')
+                    ? 'text-green-500 hover:text-green-700'
+                    : 'text-gray-400 cursor-not-allowed'
                 }`}
-                onClick={() =>
-                  task.state.startsWith("Completed") && onDownload(index.toString())
-                }
-                disabled={!task.state.startsWith("Completed")}
+                onClick={() => task.status.startsWith('Completed') && onDownload(task.id)}
+                disabled={!task.status.startsWith('Completed')}
               >
                 <FaDownload size={16} />
               </button>
