@@ -103,6 +103,11 @@ const DataGenerationTool: React.FC = () => {
       updatedDataModuleQuery: dataModuleQuery,
     };
 
+    if(!queriesUpdated.updatedDataModule || !queriesUpdated.updatedDataModuleQuery || !queriesUpdated.updatedSector || !queriesUpdated.updatedSectorQuery) {
+      toast.error("Please select valid data module and Sector.");
+      return;
+    }
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_DATA_GEN_BASE_URL}save-query`,
@@ -134,8 +139,8 @@ const DataGenerationTool: React.FC = () => {
             <CardTitle>Data Generation Configuration</CardTitle>
           </CardHeader>
           <CardContent>
-            <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-              <TabsList className="grid w-full grid-cols-2">
+            <Tabs value={selectedTab} onValueChange={setSelectedTab} >
+              <TabsList className="grid w-full grid-cols-2" >
                 <TabsTrigger value="prompts">Edit Prompts</TabsTrigger>
                 <TabsTrigger value="perigon">Perigon Queries</TabsTrigger>
               </TabsList>

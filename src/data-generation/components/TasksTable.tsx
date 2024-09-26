@@ -22,7 +22,6 @@ const TasksTable: React.FC<TasksTableProps> = ({ refreshTrigger }) => {
 
   useEffect(() => {
     fetchTasks();
-    // connectWebSocket();
   }, []);
 
   const fetchTasks = async () => {
@@ -111,11 +110,17 @@ const TasksTable: React.FC<TasksTableProps> = ({ refreshTrigger }) => {
     }
   };
 
-    useEffect(() => {
+  useEffect(() => {
     fetchTasks();
+  
+    const interval = setInterval(() => {
+      fetchTasks();
+    }, 10000); 
+  
+    return () => clearInterval(interval);
   }, [refreshTrigger]);
-
-
+  
+  
   return (
     <table className="w-full border-collapse">
       <thead>
